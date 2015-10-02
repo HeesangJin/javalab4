@@ -12,6 +12,8 @@ public class DiscountSale extends Sale {
 								
 	public DiscountSale() {
 		/** 구현 하시오 **/ 
+		super();
+		discount = 0;
 	}
 	
 	/**
@@ -20,10 +22,20 @@ public class DiscountSale extends Sale {
 	 */
 	public DiscountSale(String theName, double thePrice, double theDiscount) {
 		/** 구현 하시오 **/ 
+		setName(theName);
+		setPrice(thePrice); //super(theName,thePrice);
+		setDiscount(theDiscount); 
 	}
 	
 	public DiscountSale(DiscountSale originalObject) {
 		/** 구현 하시오 **/ 
+		if (originalObject == null) {
+			System.out.println("Error: null Sale object.");
+			System.exit(0);
+		}
+		// else
+		setName(originalObject.getName());
+		setPrice(originalObject.getPrice());
 	}
 	
 	public static void announcement() {
@@ -32,10 +44,12 @@ public class DiscountSale extends Sale {
 	
 	public double bill() {
 		/** 구현 하시오 **/ 
+		return getPrice() * (1-0.01*discount);
 	}
 	
 	public double getDiscount() {
 		/** 구현 하시오 **/ 
+		return discount;
 	}
 	
 	/**
@@ -43,6 +57,7 @@ public class DiscountSale extends Sale {
 	 */
 	public void setDiscount(double newDiscount) {
 		/** 구현 하시오 **/ 
+		discount = newDiscount;
 	}
 	
 	public String toString() {
@@ -51,10 +66,19 @@ public class DiscountSale extends Sale {
 	
 	public boolean equals(Object otherObject) {
 		/** 구현 하시오 **/ 
+		if (otherObject == null)
+			return false;
+		else if (getClass() != otherObject.getClass())
+			return false;
+		else {
+			DiscountSale otherDiscountSale = (DiscountSale) otherObject;
+			return (getName().equals(otherDiscountSale.getName()) && (getPrice() == otherDiscountSale.getPrice()));
+		}
 	}
 	
 	
 	public DiscountSale clone() {
 		/** 구현 하시오....  임시생성자 사용 **/ 
+		return new DiscountSale(this);
 	}
 }
